@@ -1,0 +1,8 @@
+{
+  "name": "Let's GO - ياللا بينا",
+  "description": "An AI-powered travel companion that identifies landmarks and historical buildings via camera or image upload, providing rich historical context and tours.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
