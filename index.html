@@ -1,38 +1,378 @@
-
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Tours - اكتشف المعالم</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Yall Bina - ياللا بينا | AI Zoon</title>
+    <!-- Font Awesome 6 for icons (أيقونات بسيطة) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: #021512;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Tahoma', 'GESSTwo', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            /* خلفية أخضر بوستاجيو solid ومريح */
+            background: #1f4d3e;  /* بوستاجيو deep base */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            direction: rtl;
+        }
+
+        /* إضافة نسيج ناعم جداً للخلفية بدون أي شعاع */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg, rgba(255,255,240,0.02) 0px, rgba(255,255,240,0.02) 20px, rgba(210,180,140,0.01) 20px, rgba(210,180,140,0.01) 40px);
+            pointer-events: none;
+        }
+
+        /* البطاقة الرئيسية - لون أصفر مفاتيح مسطردة خالص بدون أي شعاع */
+        .mustard-card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 750px;
+            background: #d4a81e;  /* أصفر مفاتيح مسطردة ثابت */
+            border-radius: 48px 16px 48px 16px;
+            box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.5); /* ظل ناعم بدون شعاع */
+            padding: 3rem 2.2rem;
+            border: 2px solid #b48b1a; /* حدود أعمق قليلاً */
+            transition: transform 0.2s ease;
+        }
+
+        .mustard-card:hover {
+            transform: scale(1.01);
+        }
+
+        /* حاوية المفتاحين (رابطين) */
+        .keys-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 2.2rem;
+            flex-wrap: wrap;
+        }
+
+        /* تصميم موحد للمفاتيح - بدون أي شعاع أو توهج */
+        .app-key-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #2b5e4c;  /* أخضر بوستاجيو غامق للتباين */
+            padding: 1rem 1.8rem 1rem 2.2rem;
+            border-radius: 60px 16px 60px 16px;
+            border: 2px solid #f5e56b;
+            box-shadow: 0 8px 0 #1a3a2f; /* ظل مسطح بدون أي glow */
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-decoration: none;
+            transition: 0.15s ease;
+            direction: ltr;
+        }
+
+        .app-key-link i {
+            font-size: 1.9rem;
+            color: #f5d742;
+        }
+
+        .app-key-link span {
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .app-key-link:hover {
+            background: #236b54;
+            border-color: #ffea7a;
+            box-shadow: 0 6px 0 #1a3a2f;
+            transform: translateY(-2px);
+        }
+
+        .app-key-link:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #1a3a2f;
+        }
+
+        /* العنوان الرئيسي "أهلا بك في AI Zoon" بدون أي شعاع */
+        .main-headline {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin: 1.8rem 0 1rem;
+            line-height: 1.4;
+            color: #2b4a3a;  /* أخضر بوستاجيو غامق */
+            background: transparent;
+            text-shadow: none; /* إزالة أي شعاع */
+            letter-spacing: 1px;
+        }
+
+        /* عبارة "يا أبو حميد" بدون شعاع */
+        .abu-hamid {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 2rem 0 2.5rem;
+            color: #2b4a3a;  /* نفس الأخضر الغامق */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .abu-hamid i {
+            color: #2b4a3a;
+            font-size: 2.2rem;
+            opacity: 0.9;
+        }
+
+        /* حاوية البوصلة - لوجو 3D بألوان متعددة */
+        .compass-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.5rem auto 2rem;
+            width: 100%;
+        }
+
+        /* بوصلة مرسومة 3D بألوان متعددة */
+        .compass-3d {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* الدائرة الأساسية */
+        .compass-circle {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ffd966, #ffb347, #ff8c42, #ff6b6b, #a06ab4, #4a90e2);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3), 0 0 0 4px #f0e68c, 0 0 0 8px #c9b037;
+            transform: rotateX(10deg) rotateY(10deg);
+            transition: transform 0.3s ease;
+        }
+
+        /* الاتجاهات الأربعة */
+        .direction {
+            position: absolute;
+            font-weight: 900;
+            font-size: 1.4rem;
+            text-shadow: 2px 2px 0 #333, 4px 4px 0 rgba(0,0,0,0.2);
+            z-index: 15;
+        }
+
+        .north {
+            top: 5px;
+            color: #e63946;
+            transform: translateZ(10px);
+        }
+        .south {
+            bottom: 5px;
+            color: #2a9d8f;
+            transform: translateZ(10px);
+        }
+        .east {
+            right: 10px;
+            color: #e9c46a;
+            transform: translateZ(10px);
+        }
+        .west {
+            left: 10px;
+            color: #3b8ea5;
+            transform: translateZ(10px);
+        }
+
+        /* الإبرة 3D */
+        .needle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 50px solid #c92a2a;
+            transform: rotate(45deg) translateZ(15px);
+            filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.5));
+            z-index: 20;
+        }
+        
+        .needle::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ffd966, #b8860b);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd966;
+        }
+
+        /* إبرة معاكسة */
+        .needle-south {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-top: 40px solid #4a4e69;
+            transform: rotate(225deg) translateZ(8px);
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+            z-index: 18;
+            opacity: 0.9;
+        }
+
+        /* زخارف بوصلة إضافية */
+        .compass-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle, #fff5b0, #f1c40f);
+            border-radius: 50%;
+            z-index: 25;
+            box-shadow: 0 0 10px #ffd966;
+            transform: translateZ(20px);
+        }
+
+        /* حركة خفيفة للبوصلة */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(2deg); }
+            75% { transform: translateY(8px) rotate(-2deg); }
+        }
+
+        /* تأثير hover للبوصلة */
+        .compass-3d:hover {
+            animation: none;
+            transform: scale(1.1) rotateX(5deg) rotateY(5deg);
+            transition: transform 0.4s ease;
+        }
+
+        /* تذييل بسيط */
+        .footer-note {
+            text-align: center;
+            margin-top: 30px;
+            color: #2d4f40;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .footer-note i {
+            color: #2d4f40;
+            margin: 0 5px;
+        }
+
+        /* زخارف بسيطة غير مضيئة */
+        .static-icon {
+            position: absolute;
+            font-size: 3.5rem;
+            opacity: 0.12;
+            color: #2d4f40;
+            z-index: 1;
+            user-select: none;
+        }
+
+        .icon-left { top: 5%; left: 3%; }
+        .icon-right { bottom: 5%; right: 3%; }
+
+        @media (max-width: 550px) {
+            .main-headline { font-size: 2.2rem; }
+            .abu-hamid { font-size: 1.8rem; }
+            .compass-3d { width: 100px; height: 100px; }
+            .compass-circle { width: 90px; height: 90px; }
+            .needle { border-left: 18px solid transparent; border-right: 18px solid transparent; border-bottom: 35px solid #c92a2a; }
+            .needle-south { border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 28px solid #4a4e69; }
+            .direction { font-size: 1rem; }
+            .app-key-link { font-size: 1rem; padding: 0.7rem 1.2rem; }
+            .app-key-link i { font-size: 1.5rem; }
+            .keys-container { gap: 12px; }
         }
     </style>
-    <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@19.2.3",
-    "react-dom": "https://esm.sh/react-dom@19.2.3",
-    "react-dom/client": "https://esm.sh/react-dom@19.2.3/client",
-    "@google/genai": "https://esm.sh/@google/genai@1.35.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body>
-    <div id="root"></div>
-    <script type="module" src="index.tsx"></script>
-<script type="module" src="/index.tsx"></script>
+
+    <!-- زخارف ثابتة بدون أي توهج -->
+    <i class="fas fa-key static-icon icon-left"></i>
+    <i class="fas fa-leaf static-icon icon-right"></i>
+
+    <div class="mustard-card">
+        <!-- مفتاحين: الرابط نفسه يعمل في كليهما -->
+        <div class="keys-container">
+            <!-- المفتاح الأول -->
+            <a href="https://ai.studio/apps/7a5c56e3-e4b9-423f-a527-1ee89d29ea02?fullscreenApplet=true" 
+               class="app-key-link" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                <i class="fas fa-key"></i>
+                <span>Yall Bina</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+
+            <!-- المفتاح الثاني (نفس الرابط) -->
+            <a href="https://ai.studio/apps/7a5c56e3-e4b9-423f-a527-1ee89d29ea02?fullscreenApplet=true" 
+               class="app-key-link" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                <i class="fas fa-key"></i>
+                <span>ياللا بينا</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+
+        <!-- النص الرئيسي في الوسط تماماً، بدون أي شعاع -->
+        <div class="main-headline">
+            أهلا بك فى <br> AI Zoon
+        </div>
+
+        <div class="abu-hamid">
+            <i class="fas fa-star"></i>   يا أبو حميد   <i class="fas fa-star"></i>
+        </div>
+
+        <!-- لوجو البوصلة 3D بألوان متعددة (بدلاً من الزر) -->
+        <div class="compass-container">
+            <div class="compass-3d">
+                <div class="compass-circle"></div>
+                <div class="direction north">N</div>
+                <div class="direction south">S</div>
+                <div class="direction east">E</div>
+                <div class="direction west">W</div>
+                <div class="needle"></div>
+                <div class="needle-south"></div>
+                <div class="compass-dot"></div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-square"></i> AI ZOON · بوستاجيو <i class="fas fa-square"></i>
+        </div>
+    </div>
+
+    <script>
+        // لا يوجد أي تأثيرات أو رسائل، فقط بوصلة 3D تفاعلية
+        // يمكن إضافة تأثير خفيف عند النقر على البوصلة إذا أردت
+        document.querySelector('.compass-3d').addEventListener('click', function() {
+            this.style.transform = 'rotate(180deg) scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 400);
+        });
+    </script>
+    <!-- ملاحظة: تم حذف زر "تفضل هنا" ووضع مكانه لوجو بوصلة 3D بألوان متعددة -->
 </body>
 </html>
